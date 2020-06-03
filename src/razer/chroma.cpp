@@ -7,10 +7,13 @@
 #include <vector>
 
 #ifdef _WIN64
-#define CHROMASDKDLL        TEXT("RzChromaSDK64.dll")
+	#define CHROMASDKDLL        TEXT("RzChromaSDK64.dll")
 #else
-#define CHROMASDKDLL        TEXT("RzChromaSDK.dll")
+	#ifdef _WIN32
+		#define CHROMASDKDLL        TEXT("RzChromaSDK.dll")
+	#endif
 #endif
+
 
 using namespace std;
 using namespace Razer;
@@ -42,6 +45,9 @@ Chroma::Chroma() :
 	_DeleteEffect = NULL;
 	_QueryDevice = NULL;
 
+// FIXME
+	#ifdef _WIN32
+
 	if (m_hModule == NULL)
 	{
 		m_hModule = ::LoadLibrary(CHROMASDKDLL);
@@ -72,10 +78,14 @@ Chroma::Chroma() :
 	{
 		m_hEvent = ::CreateEvent(NULL, TRUE, FALSE, EVENT_NAME);
 	}
+	#endif
 }
 
 Chroma::~Chroma()
 {
+	// fixme
+	#ifdef _WIN32
+
 	if (m_hEvent != NULL)
 	{
 		::CloseHandle(m_hEvent);
@@ -97,6 +107,7 @@ Chroma::~Chroma()
 		::FreeLibrary(m_hModule);
 		m_hModule = NULL;
 	}
+	#endif
 }
 
 void Chroma::CreateEffect(RZDEVICEID DeviceId, ChromaSDK::EFFECT_TYPE Effect, PRZPARAM pParam, RZEFFECTID* pEffectId)
