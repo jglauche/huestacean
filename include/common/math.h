@@ -4,6 +4,11 @@
 #include <algorithm>
 #include <string>
 
+#ifndef WIN32
+	typedef long double long_double_t;
+#endif
+
+
 namespace Math
 {
 	// It's one "big" namespace
@@ -63,7 +68,7 @@ namespace Math
 	}
 
 	constexpr inline angle operator""_deg(unsigned long long a) {
-		return angle(long double(a) * PI / 180.0);
+		return angle((long double)(a) * PI / 180.0);
 	}
 
 	//////////////////////
@@ -129,7 +134,7 @@ namespace Math
 			: x(0), y(0), z(0)
 		{
 		}
-		
+
 		constexpr Vector3d(double inX, double inY, double inZ)
 			: x(inX), y(inY), z(inZ)
 		{

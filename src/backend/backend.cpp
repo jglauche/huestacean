@@ -43,7 +43,7 @@ void Backend::Start()
 			dp.get().Start();
 		}
 	}
-	
+
 
 	stopRequested = false;
 	thread = std::thread([this] {
@@ -68,7 +68,7 @@ void Backend::Start()
 					scenesAreDirty = false;
 				}
 
-				//Sort devices by ProviderType     
+				//Sort devices by ProviderType
 				std::sort(renderScene.devices.begin(), renderScene.devices.end(),
 					[&](const DeviceInScene & a, const DeviceInScene & b) {
 						if (a.device->GetType() == b.device->GetType())
@@ -85,7 +85,7 @@ void Backend::Start()
 						}
 					});
 
-				//Query every device to fetch positions off it 
+				//Query every device to fetch positions off it
 				//	+ Fill in big dumb non-sparse Devices array
 				boundingBoxes.clear();
 				devices.clear();
@@ -331,7 +331,7 @@ void Backend::Load()
 		settings.setArrayIndex(i);
 		Scene& scene = scenes.emplace_back();
 
-		scene.name = settings.value("name").toString().toUtf8();
+		scene.name = std::string(settings.value("name").toString().toUtf8());
 
 		int effectsSize = settings.beginReadArray("effects");
 		for (int j = 0; j < effectsSize; ++j)
@@ -345,13 +345,13 @@ void Backend::Load()
 		for (int j = 0; j < devicesSize; ++j)
 		{
 			settings.setArrayIndex(j++);
-			
+
 			std::string id = std::string(settings.value("id").toString().toUtf8());
 			auto d = GetDeviceFromUniqueId(id);
 
 			DeviceInScene& dis = scene.devices.emplace_back();
 			dis.device = d;
-			
+
 			dis.transform.location.x = settings.value("t.x").toDouble();
 			dis.transform.location.y = settings.value("t.y").toDouble();
 			dis.transform.location.z = settings.value("t.z").toDouble();

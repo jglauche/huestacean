@@ -6,6 +6,7 @@
 #include <memory>
 #include <vector>
 #include <unordered_map>
+#include <mutex>
 
 #include "common/providertype.h"
 #include "deviceprovider.h"
@@ -52,7 +53,7 @@ public:
 		}
 
 		~BackendWriter() { b->scenesAreDirty = true; b->NotifyListeners(Backend::EVENT_SCENES_CHANGED); }
-		
+
 		std::vector<Scene> GetScenes() const
 		{
 			return b->scenes;

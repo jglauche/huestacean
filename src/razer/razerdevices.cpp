@@ -1,4 +1,7 @@
-#include "windows.h"
+#ifdef _WIN32
+	#include "windows.h"
+#endif
+
 #include "razer/razerdevices.h"
 #include "razer/chroma.h"
 
@@ -17,7 +20,7 @@ uint32_t Razer::RgbFrom(RgbColor& c)
 void GenericKeyboard::UploadInternal(Chroma& Sdk)
 {
 	Sdk.CreateKeyboardEffect(ChromaSDK::Keyboard::EFFECT_TYPE::CHROMA_CUSTOM,
-		&data, 
+		&data,
 		nullptr);
 }
 
@@ -73,7 +76,7 @@ std::vector<Math::Box> GenericMousepad::GetLightBoundingBoxes() const
 	using namespace Math;
 
 	auto boxes = std::vector<Math::Box>(ChromaSDK::Mousepad::MAX_LEDS);
-	
+
 	//Quoth the Razer SDK
 
 	//First LED starts from top-right corner.

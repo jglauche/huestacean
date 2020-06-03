@@ -43,7 +43,7 @@ namespace Razer
 		{
 			for (int i = 0; i < size; ++i)
 			{
-				(reinterpret_cast<uint32_t*>(&data))[i] = RgbFrom(Math::RgbColor(*colorsItMutable++));
+				data[i] = RgbFrom(Math::RgbColor(*colorsItMutable++));
 				devicesItMutable++;
 			}
 
@@ -70,7 +70,7 @@ namespace Razer
 					constexpr distance xStart = -1.0 * (xSize / 2.0) + cellXSize / 2.0;
 					constexpr distance yStart = -1.0 * (ySize / 2.0) + cellYSize / 2.0;
 
-					boxes[x * COLUMNS + y] = Math::Box{ 
+					boxes[x * COLUMNS + y] = Math::Box{
 						Vector3d{xStart + cellXSize * x, yStart + cellYSize * y, 0.0},
 						Vector3d{cellXSize / 2.0, cellYSize / 2.0, cellZSize / 2.0}};
 				}
@@ -82,7 +82,7 @@ namespace Razer
 	protected:
 		virtual void UploadInternal(Chroma& Sdk) = 0;
 		uint32_t data[ROWS][COLUMNS];
-		
+
 	};
 
 
@@ -90,7 +90,7 @@ namespace Razer
 	 *	Razer devices that use a grid layout
 	 */
 
-	class GenericKeyboard 
+	class GenericKeyboard
 		: public ChromaDeviceGrid<ChromaSDK::Keyboard::MAX_ROW, ChromaSDK::Keyboard::MAX_COLUMN, 15, 45>
 	{
 	protected:
@@ -130,7 +130,7 @@ namespace Razer
 		virtual void UploadInternal(Chroma& Sdk) override;
 	};
 
-	/* 
+	/*
 	 * Devices with weird LED layouts
 	 */
 

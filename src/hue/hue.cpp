@@ -30,12 +30,12 @@ void Provider::Update(const LightUpdateParams& Params)
 	if (Params.devicesDirty)
 	{
 		perBridgeUpdateInfo.clear();
-		
+
 		for (auto it = Params.devicesBegin; it != Params.devicesEnd; ++it)
 		{
 			auto& updateInfo = perBridgeUpdateInfo.emplace_back();
 			auto* asLight = dynamic_cast<Light*>((*it).get());
-			
+
 			for (int i = 0; i < bridges.size(); ++i)
 			{
 				if (bridges[i]->id == asLight->bridgeid)
@@ -111,7 +111,7 @@ bool Provider::compare(DeviceInScene a, DeviceInScene b)
 	}
 
 	//Find and compare bridge index, id
-	
+
 	auto findBridgeIndex = [&](std::string id) {
 		int i = 0;
 
@@ -124,7 +124,7 @@ bool Provider::compare(DeviceInScene a, DeviceInScene b)
 		}
 		return -1;
 	};
-	
+
 	auto aBridgeIndex = findBridgeIndex(aL->bridgeid);
 	auto bBridgeIndex = findBridgeIndex(bL->bridgeid);
 
@@ -161,7 +161,7 @@ DevicePtr Provider::GetDeviceFromUniqueId(std::string id) const
 
 void Provider::Start()
 {
-	
+
 }
 void Provider::Stop()
 {
@@ -300,8 +300,8 @@ void Provider::Load(QSettings& settings)
 			NotifyListeners(EVENT_A_BRIDGE_CHANGED);
 		}));
 
-		b = std::make_shared<Bridge>(qnam, 
-			std::string(settings.value("id").toString().toUtf8()), 
+		b = std::make_shared<Bridge>(qnam,
+			std::string(settings.value("id").toString().toUtf8()),
 			settings.value("address").toUInt());
 
 		b->username = std::string(settings.value("username").toString().toUtf8());
@@ -316,13 +316,13 @@ void Provider::Load(QSettings& settings)
 			auto& l = b->devices.emplace_back();
 			l = std::make_shared<Light>();
 
-			l->uniqueid = settings.value("uniqueid").toString().toUtf8();
+			l->uniqueid = std::string(settings.value("uniqueid").toString().toUtf8());
 			l->id = settings.value("id").toUInt();
 
-			l->bridgeid = settings.value("bridgeid").toString().toUtf8();
-			l->name = settings.value("name").toString().toUtf8();
-			l->type = settings.value("type").toString().toUtf8();
-			l->productname = settings.value("productname").toString().toUtf8();
+			l->bridgeid = std::string(settings.value("bridgeid").toString().toUtf8());
+			l->name = std::string(settings.value("name").toString().toUtf8());
+			l->type = std::string(settings.value("type").toString().toUtf8());
+			l->productname = std::string(settings.value("productname").toString().toUtf8());
 		}
 		settings.endArray();
 	}

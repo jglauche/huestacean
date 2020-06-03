@@ -1,7 +1,8 @@
 #pragma once
 
-//oh no
-#include "windows.h"
+#ifdef WIN32
+	#include "windows.h"
+#endif
 
 #include "RzChromaSDKDefines.h"
 #include "RzChromaSDKTypes.h"

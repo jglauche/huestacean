@@ -6,6 +6,22 @@
 
 #pragma once
 
+#ifndef WIN32
+	#include <stdint.h>
+	typedef uint32_t 			DWORD;
+	typedef uint16_t 			WORD;
+	typedef uint8_t 			BYTE;
+	typedef uint32_t 			UINT;
+	typedef long 					LONG;
+	typedef wchar_t 			TCHAR;
+	typedef uint32_t 			COLORREF;
+	typedef void 					*PVOID;
+	typedef PVOID 				HANDLE;
+	typedef HANDLE 				HWND;
+	typedef HANDLE 				HINSTANCE;
+	typedef HINSTANCE 		HMODULE;
+#endif
+
 typedef LONG            RZRESULT;           //!< Return result.
 typedef GUID            RZEFFECTID;         //!< Effect Id.
 typedef GUID            RZDEVICEID;         //!< Device Id.
@@ -18,7 +34,7 @@ typedef DWORD           RZCOLOR;            //!< Color data. 1st byte = Red; 2nd
 namespace ChromaSDK
 {
     //! Event notification Window message
-    const UINT WM_CHROMA_EVENT = WM_APP+0x2000;
+    const UINT WM_CHROMA_EVENT = 0x8000+0x2000;
 
     //! Application information.
     typedef struct APPINFOTYPE
@@ -569,7 +585,7 @@ namespace ChromaSDK
             RZCOLOR Color[MAX_LEDS]; //!< Array of colors.
         } CUSTOM_EFFECT_TYPE;
 
-        //! Custom effect using virtual grid. 
+        //! Custom effect using virtual grid.
         //! Indexes of the LED are defined in RZLED2.i.e. Row = HIBYTE(RZLED2_SCROLLWHEEL), Column = LOBYTE(RZLED2_SCROLLWHEEL)
         typedef struct CUSTOM_EFFECT_TYPE2
         {
@@ -816,7 +832,7 @@ namespace ChromaSDK
         //! [ChromaLinkL#1|ChromaLinkL#2|ChromaLinkL#3|ChromaLinkL#4|ChromaLinkL#5].\n
         typedef struct CUSTOM_EFFECT_TYPE
         {
-            RZCOLOR Color[MAX_LEDS];    //!< Array of colors. 
+            RZCOLOR Color[MAX_LEDS];    //!< Array of colors.
         } CUSTOM_EFFECT_TYPE;
 
         //! Static effect type.\n
