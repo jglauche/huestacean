@@ -62,7 +62,8 @@ void GenericMousepad::Upload(std::vector<Math::HsluvColor>::iterator& colorsItMu
 {
 	for (int i = 0; i < size; ++i)
 	{
-		data[i] = RgbFrom(Math::RgbColor(*colorsItMutable++));
+		Math::RgbColor color =  Math::RgbColor(*colorsItMutable++);
+		data[i] = RgbFrom(color);
 		devicesItMutable++;
 	}
 

@@ -43,7 +43,8 @@ namespace Razer
 		{
 			for (int i = 0; i < size; ++i)
 			{
-				data[i] = RgbFrom(Math::RgbColor(*colorsItMutable++));
+				Math::RgbColor color = Math::RgbColor(*colorsItMutable++);
+				(reinterpret_cast<uint32_t*>(&data))[i] = RgbFrom(color);
 				devicesItMutable++;
 			}
 

@@ -6,6 +6,7 @@
 
 #ifndef WIN32
 	typedef long double long_double_t;
+	#define RGB(r,g,b)          ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
 #endif
 
 
