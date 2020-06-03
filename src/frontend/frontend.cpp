@@ -6,7 +6,7 @@
 #include <QSignalBlocker>
 #include <QDebug>
 
-Frontend::Frontend(std::shared_ptr<Backend> inBackend) 
+Frontend::Frontend(std::shared_ptr<Backend> inBackend)
 	: FrontendSimpleSource(nullptr)
 	, m_Backend(inBackend)
 	, changeIgnoreRequests(0)
@@ -84,7 +84,7 @@ void Frontend::BackendScenesChanged()
 {
 	QSignalBlocker Bl(this);
 	ScopedIgnoreChanges Ig(this);
-	
+
 	auto w = m_Backend->GetWriter();
 
 	QList<SceneInfo> newScenes;
@@ -121,7 +121,7 @@ void Frontend::BackendRazerChanged()
 	RazerInfo newRazer;
 
 	auto& razer = m_Backend->razer;
-	auto& devices = razer.GetDevices();
+	auto devices = razer.GetDevices();
 
 	for (auto& d : devices)
 	{
